@@ -31,3 +31,12 @@ func (n *Node) HasProperty(fieldName string) bool {
 	_, ok := n.Value[fieldName]
 	return ok
 }
+
+// UsePanicAPI ...
+func (n *Node) UsePanicAPI() *PanicNode {
+	panicNode := PanicNode{
+		Node: n,
+	}
+
+	return &panicNode
+}

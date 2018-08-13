@@ -81,3 +81,9 @@ func arrayItemWrongTypeError(index int, expectedType, actualType, path string) *
 
 	return &nodeError
 }
+
+func panicOnErr(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
