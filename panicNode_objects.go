@@ -1,5 +1,10 @@
 package jscraper
 
+// IsObject ...
+func (n *PanicNode) IsObject(fieldName string) bool {
+	return n.Node.IsObject(fieldName)
+}
+
 // ObjectP ...
 func (n *PanicNode) ObjectP(fieldName string) *PanicNode {
 	node, err := n.Node.ObjectP(fieldName)

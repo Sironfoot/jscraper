@@ -1,5 +1,10 @@
 package jscraper
 
+// IsBoolean ...
+func (n *PanicNode) IsBoolean(fieldName string) bool {
+	return n.Node.IsBoolean(fieldName)
+}
+
 // BooleanP ...
 func (n *PanicNode) BooleanP(fieldName string) *bool {
 	v, err := n.Node.BooleanP(fieldName)

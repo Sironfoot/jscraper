@@ -6,6 +6,50 @@ import (
 	"github.com/sironfoot/jscraper"
 )
 
+func TestIsNumber(t *testing.T) {
+	data := []byte(ObjectJSON)
+	node, err := jscraper.NewFromBytes(data)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	t.Run("Is a Number", func(t *testing.T) {
+		actual := node.IsNumber("number")
+		expected := true
+
+		if actual != expected {
+			t.Fatalf("Expected '%v', actual '%v'", expected, actual)
+		}
+	})
+
+	t.Run("Is Not a Number", func(t *testing.T) {
+		actual := node.IsNumber("string")
+		expected := false
+
+		if actual != expected {
+			t.Fatalf("Expected '%v', actual '%v'", expected, actual)
+		}
+	})
+
+	t.Run("Null Number", func(t *testing.T) {
+		actual := node.IsNumber("number_null")
+		expected := false
+
+		if actual != expected {
+			t.Fatalf("Expected '%v', actual '%v'", expected, actual)
+		}
+	})
+
+	t.Run("Non-existent Property", func(t *testing.T) {
+		actual := node.IsNumber("nonsense")
+		expected := false
+
+		if actual != expected {
+			t.Fatalf("Expected '%v', actual '%v'", expected, actual)
+		}
+	})
+}
+
 func TestNumber(t *testing.T) {
 	data := []byte(ObjectJSON)
 	node, err := jscraper.NewFromBytes(data)

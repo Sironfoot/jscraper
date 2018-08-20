@@ -5,6 +5,12 @@ import (
 	"reflect"
 )
 
+// IsObject ...
+func (n *Node) IsObject(fieldName string) bool {
+	_, err := n.Object(fieldName)
+	return err == nil
+}
+
 // ObjectP ...
 func (n *Node) ObjectP(fieldName string) (*Node, error) {
 	value, ok := n.Value[fieldName]

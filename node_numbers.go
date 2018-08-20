@@ -5,6 +5,12 @@ import (
 	"reflect"
 )
 
+// IsNumber ...
+func (n *Node) IsNumber(fieldName string) bool {
+	_, err := n.Number(fieldName)
+	return err == nil
+}
+
 // NumberP ...
 func (n *Node) NumberP(fieldName string) (*float64, error) {
 	value, ok := n.Value[fieldName]

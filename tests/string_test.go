@@ -6,6 +6,50 @@ import (
 	"github.com/sironfoot/jscraper"
 )
 
+func TestIsString(t *testing.T) {
+	data := []byte(ObjectJSON)
+	node, err := jscraper.NewFromBytes(data)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	t.Run("Is a String", func(t *testing.T) {
+		actual := node.IsString("string")
+		expected := true
+
+		if actual != expected {
+			t.Fatalf("Expected '%v', actual '%v'", expected, actual)
+		}
+	})
+
+	t.Run("Is Not a String", func(t *testing.T) {
+		actual := node.IsString("number")
+		expected := false
+
+		if actual != expected {
+			t.Fatalf("Expected '%v', actual '%v'", expected, actual)
+		}
+	})
+
+	t.Run("Null String", func(t *testing.T) {
+		actual := node.IsString("string_null")
+		expected := false
+
+		if actual != expected {
+			t.Fatalf("Expected '%v', actual '%v'", expected, actual)
+		}
+	})
+
+	t.Run("Non-existent Property", func(t *testing.T) {
+		actual := node.IsString("nonsense")
+		expected := false
+
+		if actual != expected {
+			t.Fatalf("Expected '%v', actual '%v'", expected, actual)
+		}
+	})
+}
+
 func TestString(t *testing.T) {
 	data := []byte(ObjectJSON)
 	node, err := jscraper.NewFromBytes(data)

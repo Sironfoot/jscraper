@@ -6,6 +6,50 @@ import (
 	"github.com/sironfoot/jscraper"
 )
 
+func TestIsBoolean(t *testing.T) {
+	data := []byte(ObjectJSON)
+	node, err := jscraper.NewFromBytes(data)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	t.Run("Is a Boolean", func(t *testing.T) {
+		actual := node.IsBoolean("boolean")
+		expected := true
+
+		if actual != expected {
+			t.Fatalf("Expected '%v', actual '%v'", expected, actual)
+		}
+	})
+
+	t.Run("Is Not a Boolean", func(t *testing.T) {
+		actual := node.IsBoolean("string")
+		expected := false
+
+		if actual != expected {
+			t.Fatalf("Expected '%v', actual '%v'", expected, actual)
+		}
+	})
+
+	t.Run("Null Boolean", func(t *testing.T) {
+		actual := node.IsBoolean("boolean_null")
+		expected := false
+
+		if actual != expected {
+			t.Fatalf("Expected '%v', actual '%v'", expected, actual)
+		}
+	})
+
+	t.Run("Non-existent Property", func(t *testing.T) {
+		actual := node.IsBoolean("nonsense")
+		expected := false
+
+		if actual != expected {
+			t.Fatalf("Expected '%v', actual '%v'", expected, actual)
+		}
+	})
+}
+
 func TestBoolean(t *testing.T) {
 	data := []byte(ObjectJSON)
 	node, err := jscraper.NewFromBytes(data)
